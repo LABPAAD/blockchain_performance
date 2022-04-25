@@ -17,20 +17,15 @@ def funcao():
         id_str = sha256(str(time.time()).encode('utf-8')).hexdigest()
         cmd = "sleep 2"
         inicio = timeit.default_timer()
-<<<<<<< HEAD
         return_code = subprocess.call("echo Hello World", shell=True)
         #return_code = subprocess.call("sleep 2", shell=True)
         fim = timeit.default_timer()
         text = "{} {} {} \n".format(i,return_code,fim - inicio)
         print(text)
         list1.append(text)
-        
-
-=======
         return_code = subprocess.call(cmd, shell=True)
         fim = timeit.default_timer()
         print(id_str, return_code, fim - inicio)
->>>>>>> a65c40aa50a3c8f000b88a6b45163b0aa000455e
         
 
 
@@ -47,16 +42,12 @@ if __name__ == '__main__':
     T = int(sys.argv[2])
     log_name = sys.argv[3]
     print("experiment:",N, T, log_name)
-
-<<<<<<< HEAD
     arquivo = open(log_name, "a")
     for i in range(T):
         text = "execução: {} \n".format(i)
         print(text)
         list.append(text)
-=======
     for i in range(T):
->>>>>>> a65c40aa50a3c8f000b88a6b45163b0aa000455e
         threading.Thread(target=funcao).start()
         time.sleep(1)
     for i in list:
