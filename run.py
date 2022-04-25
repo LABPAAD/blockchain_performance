@@ -3,6 +3,8 @@ import threading
 import time
 import subprocess
 import timeit
+from hashlib import sha256
+
 
 N = 5
 T = 10
@@ -10,11 +12,12 @@ T = 10
 
 def funcao():
     for i in range(N):
+        id_str = sha256(str(time.time()).encode('utf-8')).hexdigest()
+        cmd = "sleep 2"
         inicio = timeit.default_timer()
-        #sreturn_code = subprocess.call("echo Hello World", shell=True)
-        return_code = subprocess.call("sleep 2", shell=True)
+        return_code = subprocess.call(cmd, shell=True)
         fim = timeit.default_timer()
-        print(i,return_code,fim - inicio)
+        print(id_str, return_code, fim - inicio)
         
 
 
@@ -32,9 +35,7 @@ if __name__ == '__main__':
     log_name = sys.argv[3]
     print("experiment:",N, T, log_name)
 
-
     for i in range(T):
-        print("execução: ",i)
         threading.Thread(target=funcao).start()
         time.sleep(1)
 
