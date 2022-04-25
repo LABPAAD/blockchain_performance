@@ -20,7 +20,7 @@ def funcao(j):
         id_str = sha256(str(time.time()).encode('utf-8')).hexdigest()
         #cmd = "sleep 2"
         inicio = timeit.default_timer()
-        return_code = subprocess.call("echo Hello World", shell=True)
+        return_code = subprocess.call(cmd, shell=True)
         #return_code = subprocess.call("sleep 2", shell=True)
         fim = timeit.default_timer()
         text = [i, return_code, fim-inicio]
