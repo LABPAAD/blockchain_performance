@@ -25,7 +25,7 @@ def funcao(j):
         return_code = subprocess.call(cmd, shell=True)
         #return_code = subprocess.call("sleep 2", shell=True)
         fim = timeit.default_timer()
-        text = [i, return_code, fim-inicio]
+        text = [id_str, return_code, fim-inicio]
         #text = "{}     {}        {} \n".format(i,return_code,fim - inicio)
         #print(text)
         list.append(text)
