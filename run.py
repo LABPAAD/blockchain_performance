@@ -57,7 +57,7 @@ if __name__ == '__main__':
     list.append(temtot)
     #arquivo.writelines(list)
     for i in list:
-        arquivo.writelines(str(i))
+        arquivo.writelines("{}\n".format(i))
     print("Fim!!")
     print(temtot)
     
