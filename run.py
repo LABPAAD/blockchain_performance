@@ -40,6 +40,7 @@ def funcao(j):
         #text = "{}     {}        {} \n".format(i,return_code,fim - inicio)
         #print(text)
         list.append(text)
+    list.append("\n{} Transações!\n".format(i+1))
 
 
 #*******************************************************************************
