@@ -25,7 +25,8 @@ def funcao(j):
         return_code = subprocess.call(cmd,stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
         #return_code = subprocess.call("sleep 2", shell=True)
         fim = timeit.default_timer()
-        text = [id_str, return_code, fim-inicio]
+        temp = fim-inicio
+        text = [id_str, return_code, temp]
         #text = "{}     {}        {} \n".format(i,return_code,fim - inicio)
         #print(text)
         list.append(text)
@@ -47,12 +48,16 @@ if __name__ == '__main__':
     print(prt)
     list.append(prt)
     arquivo = open(log_name, "a")
+    inicio = timeit.default_timer()
     for i in range(T):
         threading.Thread(target=funcao(i)).start()
         time.sleep(1)
-    
+    fim = timeit.default_timer()
+    temtot = "Tempo total: {}".format(fim-inicio)
+    list.append(temtot)
     #arquivo.writelines(list)
     for i in list:
         arquivo.writelines(str(i))
     print("Fim!!")
+    print(temtot)
     
