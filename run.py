@@ -72,10 +72,8 @@ if __name__ == '__main__':
     temtot = "Tempo total: {}".format(fim-inicio)
     list.append(temtot)
     #arquivo.writelines(list)
-    j = 1
     for i in list:
-        arquivo.writelines("{} {}\n".format(j,i))
-        j+=1
+        arquivo.writelines("{}\n".format(i))
     print("Fim!!")
     print(temtot)
     
