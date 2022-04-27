@@ -18,7 +18,7 @@ def timeout():
     cont = False
     print("Tempo esgotado")
 
-def funcao(j,ntr):
+def funcao(j):
     text1 = "\nexecução: {} \n".format(j)
     list.append(text1)
     list.append("id return_code tempo   \n")
@@ -40,7 +40,7 @@ def funcao(j,ntr):
         #text = "{}     {}        {} \n".format(i,return_code,fim - inicio)
         #print(text)
         list.append(text)
-        ntr += 1
+        ntrans += 1
     #list.append("\n{} Transações!\n".format(i+1))
 
 
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     #listThreads = []
 
     for i in range(T):
-        thread = threading.Thread(target=funcao, args=(i,ntrans))
+        thread = threading.Thread(target=funcao, args=(i))
         thread.start()
         time.sleep(1)
         
