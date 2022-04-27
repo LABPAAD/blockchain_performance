@@ -19,6 +19,7 @@ def timeout():
     print("Tempo esgotado")
 
 def funcao(j):
+    global ntrans
     text1 = "\nexecução: {} \n".format(j)
     list.append(text1)
     list.append("id return_code tempo   \n")
