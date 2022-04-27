@@ -10,7 +10,7 @@ import datetime
 N = 5
 T = 10
 list = []
-
+ntrans = 0
 cont = True
 def timeout():
     global cont
@@ -18,7 +18,7 @@ def timeout():
     cont = False
     print("Tempo esgotado")
 
-def funcao(j):
+def funcao(j,ntr):
     text1 = "\nexecução: {} \n".format(j)
     list.append(text1)
     list.append("id return_code tempo   \n")
@@ -30,7 +30,6 @@ def funcao(j):
         id_str = sha256(str(time.time()).encode('utf-8')).hexdigest()
         cmd2 = '{"Args":["issue","Pedro","accessinfo","' + id_str + '"]}'
         cmd = "docker exec cli2 peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n emrcontract --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{}'".format(cmd2)
-
         #cmd = "sleep 2"
         inicio = timeit.default_timer()
         return_code = subprocess.call(cmd,stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
@@ -41,6 +40,7 @@ def funcao(j):
         #text = "{}     {}        {} \n".format(i,return_code,fim - inicio)
         #print(text)
         list.append(text)
+        ntr += 1
     #list.append("\n{} Transações!\n".format(i+1))
 
 
@@ -66,16 +66,19 @@ if __name__ == '__main__':
     #listThreads = []
 
     for i in range(T):
-        thread = threading.Thread(target=funcao, args=(i,))
+        thread = threading.Thread(target=funcao, args=(i,ntrans))
         thread.start()
         time.sleep(1)
         
     fim = timeit.default_timer()
     temtot = "Tempo total: {}".format(fim-inicio)
+    prntrans = "Numero total de transferencias: {}".format(ntrans)
     list.append(temtot)
+    list.append(prntrans)
     #arquivo.writelines(list)
     for i in list:
         arquivo.writelines("{}\n".format(i))
     print("Fim!!")
     print(temtot)
+    print(prntrans)
     
