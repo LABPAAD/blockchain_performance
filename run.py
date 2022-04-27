@@ -10,7 +10,7 @@ import datetime
 N = 5
 T = 10
 list = []
-ntrans = 0
+
 """ cont = True
 def timeout():
     global cont
@@ -23,15 +23,14 @@ def funcao(id_str):
     cmd = "docker exec cli2 peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n emrcontract --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{}'".format(cmd2)
 
     inicio = timeit.default_timer()
-    return_code = subprocess.call(cmd,stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+    return_code = subprocess.call("echo Hello World",stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
     
     fim = timeit.default_timer()
     temp = fim-inicio
     text = [id_str, return_code, temp]
    
     list.append(text)
-    global ntrans
-    ntrans +=1
+    
     
 
 
@@ -48,7 +47,7 @@ if __name__ == '__main__':
     log_name = sys.argv[3]
     prt = "experiment: {} {} {} {}\n\n\n".format(N, T, log_name, datetime.datetime.now())
     list.append(prt)
-    arquivo = open(log_name, "a")
+    arquivo = open(log_name, "a", encoding="utf-8")
     
     listThreads = []
     listHashes = []
@@ -63,15 +62,31 @@ if __name__ == '__main__':
             listThreads.append(thread)
             thread.start()
         time.sleep(1)
-    fim = timeit.default_timer()
+    
     
     for j in listThreads:
         j.join()
     
-    temtot = "Tempo total: {}".format(fim-inicio)
-    prtntrans = "Numero total de transferencias: {}".format(ntrans)
+    fim = timeit.default_timer()
+    
+    
+    
+
+    txSucc = 0
+    for i in list:
+        if (i[1] == 0):
+            txSucc += 1
+
+    timeScript = fim - inicio
+    temtot = "Tempo total: {}".format(timeScript)
+    prtntrans = "Numero total de transferencias: {}".format(len(list) - 1)
+    succ = "Transações bem sucedidas: {}".format(txSucc)
+    throughput = "Vazão: {}".format(txSucc / timeScript)
+
     list.append(temtot)
     list.append(prtntrans)
+    list.append(succ)
+    list.append(throughput)
     for i in list:
         arquivo.writelines("{}\n".format(i))
     
