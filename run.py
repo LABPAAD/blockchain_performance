@@ -9,11 +9,11 @@ import datetime
 
 list = []
 
-cont = True
-def timeout(T):
+#cont = True
+""" def timeout(T):
     global cont
     time.sleep(T)
-    cont = False
+    cont = False """
 
 def funcao(id_str):
     cmd2 = '{"Args":["issue","Pedro","accessinfo","' + id_str + '"]}'
@@ -52,10 +52,8 @@ if __name__ == '__main__':
         id_str = sha256(str(time.time() + i).encode('utf-8')).hexdigest()
         listHashes.append(id_str)
 
-    timeoutThread = threading.Thread(target=timeout, args=(T,))
-    timeoutThread.start()
     inicio = timeit.default_timer()
-    while(cont == True):
+    for i in range(T):
         for t in range(N):
             thread = threading.Thread(target=funcao, args=(listHashes.pop(0),))
             listThreads.append(thread)
