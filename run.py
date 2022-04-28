@@ -61,8 +61,8 @@ if __name__ == '__main__':
         time.sleep(1)
     
     
-    for j in listThreads:
-        j.join()
+    """ for j in listThreads:
+        j.join() """
     
     fim = timeit.default_timer()
     
