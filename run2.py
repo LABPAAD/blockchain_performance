@@ -5,7 +5,7 @@ import subprocess
 import timeit
 from hashlib import sha256
 import datetime
-import concurrent.futures
+import concurrent.futures as executor
 
 
 N = 5
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     #threading.Thread(target=timeout).start()
     #listThreads = []
-    pool = ThreadPoolExecutor(max_workers=10)
+    pool = executor.ThreadPoolExecutor(max_workers=10)
     
     for i in range(T):
         #thread = threading.Thread(target=funcao, args=(i,))
