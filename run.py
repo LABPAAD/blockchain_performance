@@ -7,16 +7,13 @@ from hashlib import sha256
 import datetime
 
 
-N = 5
-T = 10
 list = []
 
-""" cont = True
-def timeout():
+cont = True
+def timeout(T):
     global cont
     time.sleep(T)
     cont = False
-    print("Tempo esgotado") """
 
 def funcao(id_str):
     cmd2 = '{"Args":["issue","Pedro","accessinfo","' + id_str + '"]}'
@@ -55,8 +52,10 @@ if __name__ == '__main__':
         id_str = sha256(str(time.time() + i).encode('utf-8')).hexdigest()
         listHashes.append(id_str)
 
+    timeoutThread = threading.Thread(target=timeout, args=(T,))
+    timeoutThread.start()
     inicio = timeit.default_timer()
-    for i in range(T):
+    while(cont == True):
         for t in range(N):
             thread = threading.Thread(target=funcao, args=(listHashes.pop(0),))
             listThreads.append(thread)
@@ -65,7 +64,7 @@ if __name__ == '__main__':
     
     
     for j in listThreads:
-        j.join()
+        j.join(1)
     
     fim = timeit.default_timer()
     
