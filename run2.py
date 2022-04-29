@@ -58,7 +58,7 @@ if __name__ == '__main__':
     for i in range(T):
         for t in range(N):
             #thread = threading.Thread(target=funcao, args=(listHashes.pop(0),))
-            pool.submit(funcao,i)
+            pool.submit(funcao,id_str)
             #listThreads.append(thread)
             listThreads.append(pool)
             #thread.start()
