@@ -80,5 +80,7 @@ if __name__ == '__main__':
     for i in list:
         arquivo.writelines("{}\n".format(i))
 
-    for i in timeIntern:
-        print(i)
+    for i in range(T):
+        print(timeIntern[i])
+    
+    print(len(timeIntern))
