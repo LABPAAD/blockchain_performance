@@ -60,7 +60,7 @@ if __name__ == '__main__':
             #thread = threading.Thread(target=funcao, args=(listHashes.pop(0),))
             pool.submit(funcao,id_str)
             #listThreads.append(thread)
-            listThreads.append(pool)
+            #listThreads.append(pool)
             #thread.start()
         time.sleep(1)
     pool.shutdown(wait=True)
