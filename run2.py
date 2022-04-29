@@ -55,7 +55,7 @@ if __name__ == '__main__':
             cmd = "docker exec cli peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n emrcontract --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{}'".format(cmd2)
             pool.submit(insertionTx,hash, cmd)
         endThread = timeit.default_timer()
-        timeIntern.append( (initThread, endThread) )
+        timeIntern.append( initThread - endThread )
         time.sleep(1)
         
     pool.shutdown(wait=False)
