@@ -58,7 +58,7 @@ if __name__ == '__main__':
         timeIntern.append( (initThread, endThread) )
         time.sleep(1)
         
-    pool.shutdown(wait=True)
+    pool.shutdown(wait=False)
     
     fimScript = timeit.default_timer()
 
