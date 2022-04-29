@@ -44,15 +44,18 @@ if __name__ == '__main__':
         id_str = sha256(str(time.time() + i).encode('utf-8')).hexdigest()
         listHashes.append(id_str)
 
-    pool = concurrent.futures.ThreadPoolExecutor()
+    pool = concurrent.futures.ThreadPoolExecutor(max_workers=200)
+    timeIntern = []
     inicioScript = timeit.default_timer()
     for i in range(T):
+        initThread = timeit.default_timer()
         for t in range(N):
             hash = listHashes.pop(0)
             cmd2 = '{"Args":["issue","Pedro","accessinfo","' + hash + '"]}'
             cmd = "docker exec cli peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n emrcontract --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{}'".format(cmd2)
             pool.submit(insertionTx,hash, cmd)
-    
+        endThread = timeit.default_timer()
+        timeIntern.append( (initThread, endThread) )
         time.sleep(1)
     pool.shutdown(wait=True)
     
@@ -75,3 +78,6 @@ if __name__ == '__main__':
     list.append(throughput)
     for i in list:
         arquivo.writelines("{}\n".format(i))
+
+    for i in timeIntern:
+        print(i)
