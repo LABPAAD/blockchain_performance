@@ -53,7 +53,7 @@ if __name__ == '__main__':
         id_str = sha256(str(time.time() + i).encode('utf-8')).hexdigest()
         listHashes.append(id_str)
 
-    pool = concurrent.futures.ThreadPoolExecutor(max_workers=100)
+    pool = concurrent.futures.ThreadPoolExecutor(max_workers=200)
     inicio = timeit.default_timer()
     for i in range(T):
         for t in range(N):
