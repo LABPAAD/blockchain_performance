@@ -11,7 +11,7 @@ volumes:
 networks:
   byfn:
     external:
-      name: network-2
+      name: first-network
 
 services:
   peer0.org1.example.com:
