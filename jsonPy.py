@@ -3,7 +3,7 @@ import sys
 
 if __name__ == '__main__':
         arq = sys.argv
-        df = pd.read_json(arq)
+        df = pd.read_json(arq[1])
             
         lisTimeSt = []
         lisDdHash = []
@@ -22,5 +22,5 @@ if __name__ == '__main__':
         ordener = df.metadata.metadata[0]
 
         for i in range(len(lisTimeSt)):
-            print('{} {} {} {} {} {}\n'.format(i,lisTimeSt[i],lisDdHash[i],lisNumBloc[i],lisPeerEnd[i],ordener,lisStats[i]))
+            print('{} {} {} {} {} {} {}\n'.format(i,lisTimeSt[i],lisDdHash[i],lisNumBloc[i],lisPeerEnd[i],ordener,lisStats[i]))
             
