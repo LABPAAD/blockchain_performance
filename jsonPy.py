@@ -7,19 +7,25 @@ if __name__ == '__main__':
         arquivo = open(entr[2], "a", encoding="utf-8")
         lisTimeSt = []
         lisDdHash = []
-        lisNumBloc = []
+        #lisNumBloc = []
+        peerEnd = []
         lisPeerEnd = []
         lisStats = []
         ordener = ''
+        numBloc = ''
 
         for i in df.data.data:
             lisTimeSt.append(i['payload']['header']['channel_header']['timestamp'])
-            lisNumBloc.append(i['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['results']['ns_rwset'][0]['rwset']['reads'][0]['version']['block_num'])
+            #lisNumBloc.append(i['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['results']['ns_rwset'][0]['rwset']['reads'][0]['version']['block_num'])
             lisDdHash.append(i['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['results']['ns_rwset'][1]['rwset']['writes'][0]['value'])  
-            lisPeerEnd.append(i['payload']['data']['actions'][0]['payload']['action']['endorsements'][0]['endorser'])
+            peerEnd = []
+            for j in i['payload']['data']['actions'][0]['payload']['action']['endorsements']:
+                peerEnd.append(j['endorser'])
+            lisPeerEnd.append(peerEnd)
             lisStats.append(i['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['response']['status'])
 
         ordener = df.metadata.metadata[0]
-
+        numBloc = df.header.number
         for i in range(len(lisTimeSt)):
-            arquivo.writelines('{} {} {} {} {} {}\n'.format(lisTimeSt[i],lisDdHash[i],lisNumBloc[i],lisPeerEnd[i],ordener,lisStats[i]))
+            arquivo.writelines('{} {} {} {} {} {}\n'.format(lisTimeSt[i],lisDdHash[i],numBloc,lisPeerEnd[i],ordener,lisStats[i]))
+            #print('{} {} {} {} {} {}\n'.format(lisTimeSt[i],lisDdHash[i],numBloc,lisPeerEnd[i],ordener,lisStats[i]))
