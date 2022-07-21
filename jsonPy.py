@@ -24,7 +24,7 @@ if __name__ == '__main__':
             lisPeerEnd.append(peerEnd)
             lisStats.append(i['payload']['data']['actions'][0]['payload']['action']['proposal_response_payload']['extension']['response']['status'])
 
-        ordener = df.metadata.metadata[0]
+        ordener = df.metadata.metadata[4]
         numBloc = df.header.number
         for i in range(len(lisTimeSt)):
             arquivo.writelines('{} {} {} {} {} {}\n'.format(lisTimeSt[i],lisDdHash[i],numBloc,lisPeerEnd[i],ordener,lisStats[i]))
