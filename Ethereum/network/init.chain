@@ -1,0 +1,3 @@
+geth --datadir ~/eth init ~/eth/genesis.json
+
+geth --datadir ~/eth --ws --ws.addr 0.0.0.0 --ws.origins='*' --ws.api admin,eth,miner,personal,web3 --metrics --metrics.addr "0.0.0.0" --networkid 15 --http --http.port "8545" --http.addr "0.0.0.0" --port "30303" --http.corsdomain "*" --nodiscover --http.api="admin,txpool,eth,net,web3,personal,miner" --allow-insecure-unlock --syncmode "full" console

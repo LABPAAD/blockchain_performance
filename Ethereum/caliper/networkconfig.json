@@ -1,0 +1,27 @@
+{
+    "caliper": {
+        "blockchain": "ethereum",
+        "command" : {
+
+        }
+    },
+    "ethereum": {
+        "url": "ws://172.31.22.253:8545",
+        "contractDeployerAddress": "0x52d7f6ec6fad8c0c3ff289ba8a2b596bd41c8855",
+        "contractDeployerAddressPrivateKey": "028ddf127f160b2a2fa6e7b6ab5c5ac35caca572b12eb2d30f2245c69915f2e4",
+        "contractDeployerAddressPassword": "123",
+        "fromAddress": "0x52d7f6ec6fad8c0c3ff289ba8a2b596bd41c8855",
+        "fromAddressPassword": "123",
+        "fromAddressPrivateKey": "028ddf127f160b2a2fa6e7b6ab5c5ac35caca572b12eb2d30f2245c69915f2e4",
+        "transactionConfirmationBlocks": 12,
+        "contracts": {
+            "simple": {
+                "path": "cenario/src/contrato.json",
+                "gas": {
+                "addInfo": 80000000,
+                "seeInfo": 80000000
+                }
+            }
+        }
+    }
+}

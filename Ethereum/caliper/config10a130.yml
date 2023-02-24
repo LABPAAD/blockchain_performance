@@ -1,0 +1,182 @@
+simpleArgs: &simple-args
+  initialMoney: 100
+  moneyToTransfer: 100
+  numberOfAccounts: &number-of-accounts 100
+
+test:
+  name: origin_hash
+  description: >-
+    See and add info.
+  workers:
+    type: local
+    number: 1
+  rounds:
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 10
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'
+          rounds:
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 20
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 30
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 40
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 50
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 60
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 70
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 80
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 90
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 100
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 130
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 150
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 180
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'      
+    - label: addInfo
+      description: Add info.
+      txDuration: 60
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 200
+      workload:
+        module: cenario/addInfo.js
+        arguments:
+          << : *simple-args
+          money: '100'
