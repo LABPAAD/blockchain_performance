@@ -1,5 +1,5 @@
 ## Blockchain Performance
-### Experimentos de Avaliação de Desempenho e Custo de Redes Blockchain
+### Avaliação de Desempenho e Custo de Redes Blockchain
 
 Segue uma breve descrição deste repositório que contém os códigos e arquivos csv de experimentos para análise de custo e desempenho de nós em redes Ethereum e Hyperledger Fabric.
 
