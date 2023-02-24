@@ -5,6 +5,6 @@ Segue uma breve descrição deste repositório que contém os códigos e arquivo
 
 Na pasta raiz desse repositório temos o código Python `monitor.py` utilizado para obter as medições de recursos computacionais utilizados pelo nó.
 
-Na pasta `gráficos` temos o notebook `sinais.ipynb` utilizado para gerar os gráficos das medições das redes. Além disso, temos pastas correspondentes a cada configuração de do tipo de nó avaliado para as redes: `small`, `medium` e `xlarge`. Cada pasta contém o respectivo arquivo de log da ferramenta Caliper e arquivos csv com os resultados das medições de desempenho.
+Na pasta `gráficos` de cada rede, temos o notebook `sinais.ipynb` utilizado para gerar os gráficos das medições das redes. Além disso, temos pastas correspondentes a cada configuração de do tipo de nó avaliado para as redes: `small`, `medium` e `xlarge`. Cada pasta contém o respectivo arquivo de log da ferramenta Caliper e arquivos csv com os resultados das medições de desempenho.
 
-Finalmente, na pasta `Hosts docker` encontram-se os arquivos de configuração de imagens docker para hosts na rede Hyperledger Fabric.
+Finalmente, na pasta `Hosts docker` encontram-se os arquivos de configuração de imagens docker para hosts e os arquivos shell responsáveis pelo up os mesmos nas redes.
