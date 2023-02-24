@@ -1,0 +1,116 @@
+test:
+    name: basic-contract-benchmark
+    description: test benchmark
+    workers:
+      number: 4
+    rounds:
+      - label: rnd01
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd02
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd03
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd04
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd05
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd06
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd07
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd08
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd09
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
+      - label: rnd10
+        description: issue asset benchmark
+        txDuration: 6
+        rateControl:
+          type: fixed-rate
+          opts:
+            tps: 60
+        workload:
+          module: workload/issueAsset.js
+          arguments:
+            contractId: fabcar
