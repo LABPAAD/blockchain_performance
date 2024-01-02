@@ -7,12 +7,11 @@ import { TextDecoder } from 'util';
 
 const channelName = envOrDefault('CHANNEL_NAME', 'mychannel');
 const chaincodeName = envOrDefault('CHAINCODE_NAME', 'basic');
-//const chaincodeName = envOrDefault('CHAINCODE_NAME', 'fabcar');
 const mspId = envOrDefault('MSP_ID', 'Org1MSP');
 
 // Path to crypto materials.
 const cryptoPath = envOrDefault('CRYPTO_PATH', path.resolve(__dirname, '..','..','organizations', 'peerOrganizations', 'org1.example.com'));
-//const cryptoPath = envOrDefault('CRYPTO_PATH', path.resolve(__dirname, '..','..', 'peerOrganizations', 'org1.example.com'));
+
 // Path to user private key directory.
 const keyDirectoryPath = envOrDefault('KEY_DIRECTORY_PATH', path.resolve(cryptoPath, 'users', 'User1@org1.example.com', 'msp', 'keystore'));
 
@@ -33,7 +32,7 @@ const assetId = `asset${Date.now()}`;
 
 async function main(): Promise<void> {
 
-    await displayInputParameters();
+    //await displayInputParameters();
 
     // The gRPC client connection should be shared by all Gateway connections to this endpoint.
     const client = await newGrpcConnection();
@@ -84,7 +83,11 @@ async function main(): Promise<void> {
                 break;
             case "createAssetEndorse":
                 const n = parseInt(process.argv[3]);
-               await createAssetEndorse(contract, n);
+                if(process.argv[4]==="B"){
+                    await createAssetEndorseBenchmarks(contract, n);
+                }else{
+                    await createAssetEndorse(contract, n);
+                }
                break;
             case "getAll":
                 // Return all the current assets on the ledger.
@@ -138,12 +141,11 @@ async function newSigner(): Promise<Signer> {
 const generateRandomHash = () => {
     const timestamp = new Date().getTime().toString();
     const randomString = Math.random().toString();
-    const hash = crypto.createHash('sha256').update(timestamp + randomString).digest('hex');
-    const truncatedHash = hash.substring(0, 5); // Extrai os primeiros 5 caracteres do hash
+    const hash = crypto.createHash('sha512').update(timestamp + randomString).digest('hex');
+    const truncatedHash = hash.substring(0, 8); // Extrai os primeiros 5 caracteres do hash
     return "asset"+truncatedHash;
 };
 
-// const methods = ["InitLedger","createCar","queryAllCars","queryCar","transferCar",'updateCar'];
 
 const methods = ["InitLedger","CreateAsset","GetAllAssets","ReadAsset","TransferAsset",'UpdateAsset'];
 
@@ -210,6 +212,52 @@ async function createAsset(contract: Contract, n): Promise<void> {
     console.table(timingResults);
 }
 
+async function createAssetEndorseBenchmarks(contract: Contract, n) {
+    
+    if (!n) {
+        n = 1; // Sets the default value of n to 1 when there is no argument
+      }
+      for (let i = 0; i < n; i++) {
+        let hash = generateRandomHash();
+        // Start of total time measurement
+        const totalStartTime = Date.now();
+
+        const proposal = contract.newProposal(methods[1], { arguments: [hash, 'yellow', '5', 'Tom', '1300'] });
+
+        // Start of endorse time measurement
+        const endorseStartTime = Date.now();
+
+        const transaction = await proposal.endorse();
+
+        // End of endorse time measurement
+        const endorseEndTime = Date.now();
+        const endorseTime = endorseEndTime - endorseStartTime;
+
+        // Commit time measurement start
+        const commitStartTime = Date.now();
+
+        const commit = await transaction.submit();
+
+        // End of commit time measurement
+        const commitEndTime = Date.now();
+        const commitTime = commitEndTime - commitStartTime;
+
+        const result = transaction.getResult();
+
+        const status = await commit.getStatus();
+
+        if (!status.successful) {
+            throw new Error(`Transaction ${status.transactionId} failed to commit with status code ${status.code}`);
+        }
+
+        // End of total time measurement
+        const totalEndTime = Date.now();
+        const totalTime = totalEndTime - totalStartTime;
+
+       console.log(`${totalStartTime} ${hash} ${endorseEndTime} ${commitEndTime} ${totalEndTime}`);
+    }
+}
+
 async function createAssetEndorse(contract: Contract, n) {
     
     console.log('\n--> Submit Transaction: CreateAsset, creates new asset with ID, Color, Size, Owner and AppraisedValue arguments');
@@ -220,7 +268,8 @@ async function createAssetEndorse(contract: Contract, n) {
       for (let i = 0; i < n; i++) {
         let hash = generateRandomHash();
         // Start of total time measurement
-        const totalStartTime = performance.now();
+        //const totalStartTime = performance.now();
+        const totalStartTime = Date.now();
 
         const proposal = contract.newProposal(methods[1], { arguments: [hash, 'yellow', '5', 'Tom', '1300'] });
 
@@ -243,7 +292,7 @@ async function createAssetEndorse(contract: Contract, n) {
         const commitTime = commitEndTime - commitStartTime;
 
         const result = transaction.getResult();
-        console.log('*** Waiting for transaction commit');
+        //console.log('*** Waiting for transaction commit');
 
         const status = await commit.getStatus();
 
@@ -256,7 +305,7 @@ async function createAssetEndorse(contract: Contract, n) {
         const totalTime = totalEndTime - totalStartTime;
 
         console.log('*** Transaction ' + hash + ' committed successfully');
-
+        
         // Collect timing data for this iteration
         timingResults.push({
             Hash: hash,
@@ -264,6 +313,8 @@ async function createAssetEndorse(contract: Contract, n) {
             CommitTime: commitTime.toFixed(2) + ' ms',
             TotalTime: totalTime.toFixed(2) + ' ms'
         });
+
+       
     }
     console.log(`Total of ${n} transactions "${methods[1]}" sent successfully.`);
     // Display timing results in a table
