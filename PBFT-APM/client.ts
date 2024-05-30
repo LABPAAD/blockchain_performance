@@ -272,6 +272,8 @@ async function createAssetEndorse(contract: Contract, n) {
 
         const proposal = contract.newProposal(methods[1], { arguments: [hash, 'yellow', '5', 'Tom', '1300'] });
 
+        let date = new Date();
+
         // Start of endorse time measurement
         const endorseStartTime = performance.now();
 
@@ -281,43 +283,49 @@ async function createAssetEndorse(contract: Contract, n) {
         const endorseEndTime = performance.now();
         const endorseTime = endorseEndTime - endorseStartTime;
 
-        // Commit time measurement start
-        const commitStartTime = performance.now();
+        // Ordereing time measurement start
+        const orderingStartTime = performance.now();
 
         const commit = await transaction.submit();
+
+        // End of ordereing time measurement
+        const orderingEndTime = performance.now();
+        const orderingTime = orderingEndTime - orderingStartTime;
+
+        // const result = transaction.getResult();
+        // console.log('*** Waiting for transaction commit');
+        
+        // Commit time measurement start
+        const commitStartTime = performance.now();
+        const status = await commit.getStatus();
 
         // End of commit time measurement
         const commitEndTime = performance.now();
         const commitTime = commitEndTime - commitStartTime;
-
-        const result = transaction.getResult();
-        //console.log('*** Waiting for transaction commit');
-
-        const status = await commit.getStatus();
-
         if (!status.successful) {
-            throw new Error(`Transaction ${status.transactionId} failed to commit with status code ${status.code}`);
+            continue;
+            // throw new Error(Transaction ${status.transactionId} failed to commit with status code ${status.code});
         }
 
         // End of total time measurement
         const totalEndTime = performance.now();
         const totalTime = totalEndTime - totalStartTime;
 
-        console.log('*** Transaction ' + hash + ' committed successfully');
-        
+        // console.log('*** Transaction ' + hash + ' committed successfully');
+
         // Collect timing data for this iteration
         timingResults.push({
+            Start: date,
             Hash: hash,
             EndorseTime: endorseTime.toFixed(2) + ' ms',
+            orderingTime: orderingTime.toFixed(2) + ' ms',
             CommitTime: commitTime.toFixed(2) + ' ms',
             TotalTime: totalTime.toFixed(2) + ' ms'
         });
-
-       
     }
-    console.log(`Total of ${n} transactions "${methods[1]}" sent successfully.`);
-    // Display timing results in a table
+
     console.table(timingResults);
+
 }
 
 
